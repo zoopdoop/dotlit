@@ -1,23 +1,32 @@
 # dotlit 
 
-Literate programming source code processor
+Literate programming source code processor inspired by Jeremy Ashkenas' [http://coffeescript.org/#literate](Literate CoffeeScript).
+
+## What is dotlit?
+dotlit allows you to embed any number of source code files from any programming language into a single Markdown styled document.
+
+## Why use dotlit?
+
+1. Do you ever need to combine code or config files with instructions?  With dotlit you can create one document that has all the instuctions and all the files with the exact paths.
+2. Would you like to keep all the html, css and js for a page in one file for development but seperate for production?
+3. You are bored and would like to try something new.
 
 ## Getting Started
 Install the module with: `npm install dotlit`
 
 ### Command Line
 
-List all the files from a dotlit file
+List all the files in a dotlit file
 ```sh
 dotlit --list test.js.lit 
 ```
 
-Extract all the files from a dotlit file
+Extract all the files in a dotlit file
 ```sh
 dotlit --extract test.js.lit 
 ```
 
-Extract the foo.js file from the dotlit file
+Extract the foo.js file in the dotlit file
 ```sh
 dotlit --extract foo.js test.js.lit 
 ```
@@ -56,7 +65,40 @@ dotlit.load('test.js.lit', function (err, litFile) {
 
 ## Documentation
 
+### dotlit Markup
 
+dotlit is a transparent superset of [http://daringfireball.net/projects/markdown/syntax](Markdown).  Any Markdown processor can process a dotlit file and vice-versa.
+So what does dotlit add?  Just one thing, filenames and operations to code blocks.
+
+Here is a Markdown code block
+
+    #include <stdio.h>
+    int main() {
+        puts("Hello, world!");
+        return 0;
+    }
+
+Here is a dotlit code block which will allow you to extract a file named hello.c
+
+    $ hello.c
+    #include <stdio.h>
+    int main() {
+        puts("Hello, world!");
+        return 0;
+    }
+
+And here are two dotlit code blocks which combine and will allow you to extract a file named hello.c
+
+    $ hello.c
+    #include <stdio.h>
+    
+    $+ hello.c
+    int main() {
+        puts("Hello, world!");
+        return 0;
+    }
+    
+    
 ## Examples
 _(Coming soon)_
 
