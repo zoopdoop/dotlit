@@ -99,16 +99,19 @@ from the rendered README.md file.
 _**Tutorial: Creating "Hello, world!"**_
     
 _First create a file named hello.c.  The first thing you will add is preprocessor command to tell the C compiler to load the standard io libary._
+
     $ hello.c
     #include <stdio.h>
 
 _Then add the following lines which define the main entry point into the program._
+
     $+ hello.c
 
     int main() {
     }
     
 _Finally lets make the program print out "Hello, world!" and exit with a status code of 0.  Add the following between the two braces after int main() _
+
     $3a4,5 hello.c
         puts("Hello, world!");
         return 0;
