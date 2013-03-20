@@ -96,6 +96,7 @@ So, big deal right?  Well imagine you have a tutorial on creating the Hello, wor
 from the rendered README.md file.
 
 ---------------------------------------
+
 _**Tutorial: Creating "Hello, world!"**_
     
 _First create a file named hello.c.  The first thing you will add is preprocessor command to tell the C compiler to load the standard io libary._
@@ -105,34 +106,39 @@ _First create a file named hello.c.  The first thing you will add is preprocesso
 
 _Then add the following lines which define the main entry point into the program._
 
-    $+ hello.c
+    $ hello.c (+)
 
     int main() {
     }
-    
+
 _Finally lets make the program print out "Hello, world!" and exit with a status code of 0.  Add the following between the two braces after int main() _
 
-    $3a4,5 hello.c
+    $ hello.c (3a4,5)
         puts("Hello, world!");
         return 0;
+
 ---------------------------------------
 
 The previous example shows the three of the five file operations that dotlit adds.  Here are all five operations:
 
     $ text.txt
-    This creates a new file called text.txt
-    
-    $+ test.txt
-    This line gets appended to test.txt
-    
-    $1a2 test.txt
-    This line is inserted at line 2 (pushing "This line gets appended to test.txt" to line 3)
-    
-    $1,2d0 test.txt
-    This deletes the first two lines of test.txt.  This code block is ignored.
-    
-    $1c1 test.txt
-    This is the new first line of the file.
+    This creates a new file called text.txt since there is no operator after the filename.
+
+    $ test.txt (+)
+    This line gets appended to test.txt. The plain "+" means insert the text at the end of the file.
+
+    $ test.txt (1+)
+    These two line are inserted after line 1, pushing "This line gets appended to test.txt" to line 3.
+    The "1+" means insert the text after line 1.  To insert a line at the start of the file you would use "0+".
+
+    $ test.txt (0-2)
+    This deletes the first two lines of test.txt.  
+    The content of this code block is ignored but will be flagged if the dotlit command renders it to HTML.
+    The "0-2" means delete two lines after line 0 (the start of the file)
+
+    $ test.txt (1)
+    This is the new first line of the file.  The bare "1" means change line 1 in test.txt
+    This second line is ignored since we only specified a single line change.  It will be flagged if the dotlit command renders it to HTML.
 
 The last three commands use the [diff](http://en.wikipedia.org/wiki/Diff) output format to specify how a file should change
     
