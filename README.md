@@ -111,37 +111,71 @@ _Then add the following lines which define the main entry point into the program
     int main() {
     }
 
-_Finally lets make the program print out "Hello, world!" and exit with a status code of 0.  Add the following between the two braces after int main() _
+_Finally lets make the program print out "Hello, world!" and exit with a status code of 0.  Add the following between the two braces:_
 
-    $ hello.c (3a4,5)
+    $ hello.c (3+)
         puts("Hello, world!");
         return 0;
 
 ---------------------------------------
 
-The previous example shows the three of the five file operations that dotlit adds.  Here are all five operations:
+The previous example shows the three of the file operations that dotlit adds.  Here are all operations:
 
     $ text.txt
     This creates a new file called text.txt since there is no operator after the filename.
 
     $ test.txt (+)
-    This line gets appended to test.txt. The plain "+" means insert the text at the end of the file.
+    This line gets appended to test.txt at line 2. The plain "+" means insert at the end of the file.
 
-    $ test.txt (1+)
-    These two line are inserted after line 1, pushing "This line gets appended to test.txt" to line 3.
-    The "1+" means insert the text after line 1.  To insert a line at the start of the file you would use "0+".
+    $ test.txt (2+)
+    These twos lines are inserted at line 2, pushing "This line gets appended to test.txt" to line 4.
+    The "2+" means insert the text at line 2.  You can have any number of lines here.
 
-    $ test.txt (0-2)
-    This deletes the first two lines of test.txt.  
+    $ test.txt (1-2)
+    This deletes the first two lines of test.txt.  The "1-2" means delete two lines starting at line 1.
     The content of this code block is ignored but will be flagged if the dotlit command renders it to HTML.
-    The "0-2" means delete two lines after line 0 (the start of the file)
-
-    $ test.txt (1)
-    This is the new first line of the file.  The bare "1" means change line 1 in test.txt
-    This second line is ignored since we only specified a single line change.  It will be flagged if the dotlit command renders it to HTML.
-
-The last three commands use the [diff](http://en.wikipedia.org/wiki/Diff) output format to specify how a file should change
     
+    $ test.txt (1)
+    This is the new first line of the file.  The bare "1" means replace line 1 in test.txt
+    This second line is ignored since we only specified a single line replacement.  
+    This code block will be flagged if the dotlit command renders it to HTML since it has more than one line.
+
+    $ test.txt (1:2)
+    This is the new first line of the file.  The "1:2" means replace two lines starting at line 1 with these 
+    three lines.  The number of new lines in the code block does not need to match the number of lines
+    that are replaced, so this line would also be added to the file.
+    
+    $ test.text (s/code/markdown code/)
+    This replaces "code" with "markdown code".  The contents of this code block is ignored.
+    See below on how you can change the search range.
+
+Each operation accumulates in a top down manner so for instance delting the first two lines in a row actually deletes four total lines.
+
+    $ test (1-2)
+    $ test (1-2)
+
+### File Operation Format    
+Here is a formal specification of the dotfile code block file operations where L means line number and C means count.
+
+- + append the contents of the code block to end of file
+- L+ append the contents of the code block starting at line L
+- L-C delete C lines starting at line L and ignore the contents of the code block
+- L replace line L with the first line of the code block 
+- L:C replace C lines starting at line L with the entire contents of the code block 
+- s/search/replace/ use the search expression and replace it 
+
+### Search And Replacing
+
+The search parameter in a search and replace file operation is a [Javascript regular expression](https://developer.mozilla.org/en-US/docs/JavaScript/Guide/Regular_Expressions) and
+the replacement is a string that can contain special replacement patterns outlined in the above link.
+
+You can specify a range to search in the file.  The syntax is similar to the vi search and replace syntax but modified to match the other file operations.
+
+- s/search/replace/ search the entire file
+- 3s/search/replace/ search only on line 3
+- 2+s/search/replace/ search starting at line 2 to the end of the file
+- 2:4s/search/replace/ search starting at line 2 and for the next four lines
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
