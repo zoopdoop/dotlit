@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /*
  * dotlit
  *
@@ -11,8 +13,6 @@
  * https://github.com/zoopdoop/dotlit/blob/master/LICENSE
  */
 
-'use strict';
+var dotlit = require('../lib/dotlit');
 
-exports.processCommandLine = function() {
-  console.log('not yet implemented');
-};
+dotlit.processCommandLine();

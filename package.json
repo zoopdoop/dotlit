@@ -2,19 +2,25 @@
   "name": "dotlit",
   "description": "Literate programming source code processor",
   "version": "0.1.0",
-  "homepage": "https://github.com/vagrant/module",
-  "author": {},
+  "homepage": "http://www.dotlitfile.com/",
+  "author": {
+    "name": "Doug Martin",
+    "email": "doug@zoopdoop.com"
+  },
+  "bin": {
+    "dotlitfile": "./bin/dotlitfile"
+  },
   "repository": {
     "type": "git",
-    "url": "git://github.com/vagrant/module.git"
+    "url": "git://github.com/zoopdoop/dotlit.git"
   },
   "bugs": {
-    "url": "https://github.com/vagrant/module/issues"
+    "url": "https://github.com/zoopdoop/dotlit/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/vagrant/module/blob/master/LICENSE-MIT"
+      "url": "https://github.com/zoopdoop/dotlit/blob/master/LICENSE"
     }
   ],
   "main": "lib/dotlit",
@@ -30,5 +36,8 @@
     "grunt-contrib-watch": "~0.2.0",
     "grunt": "~0.4.1"
   },
-  "keywords": []
+  "keywords": [
+    "literate", 
+    "programming"
+  ]
 }
