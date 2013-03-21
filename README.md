@@ -26,43 +26,55 @@ Install the module with: `npm install dotlit`
 
 List all the files
 ```sh
-$ dotlit --list named-blocks.lit.md
-foo.js
-bar.js
-baz.css
+$ dotlit named-blocks.lit.md --list 
+index.html
+assets/js/app.js
+assets/js/api.js
+assets/css/app.css
+/etc/nginx/sites-available/example.com
 ```
 
-Extract all the files
+Extract all the files.  You will need to give confirmation for any files extracted when they are outside of the current directory 
+or its subdirectories or if the file already exists and it has a newer file date than the dotlit file.  You use the --force parameter
+to disable these checks.
 ```sh
-$ dotlit --extract-all named-blocks.lit.md 
+$ dotlit named-blocks.lit.md --extract-all --verbose
+Extracted index.html
+Extracted assets/js/app.js
+Extract assets/js/api.js? (overwriting changed file) [y/N] N
+Skipped extracting assets/js/api.js
+Extracted assets/css/app.css
+Extract /etc/nginx/sites-available/example.com? (outside of tree) [y/N] y
+Extracted /etc/nginx/sites-available/example.com
 ```
 
 Extract the foo.js file
 ```sh
-$ dotlit --extract foo.js named-blocks.lit.md 
+$ dotlit named-blocks.lit.md --extract assets/js/foo.js 
 ```
 
 Render a dotlit file as HTML
 ```sh
-$ dotlit --renderHTML named-blocks.html named-blocks.lit.md 
+$ dotlit named-blocks.lit.md --renderHTML named-blocks.html 
 ```
 
 #### Using dotlit files with only anonymous code blocks
 
 List all the files
 ```sh
-$ dotlit --list anonymous-blocks.js.lit.md 
+$ dotlit anonymous-blocks.js.lit.md --list 
 anonymous-blocks.js
 ```
 
 Extract the code into anonymous-blocks.js
 ```sh
-$ dotlit --extract anonymous-blocks.js.lit.md 
+$ dotlit anonymous-blocks.js.lit.md --extract 
 ```
 
 #### Using dotlit files with a mix of named and anonymous code blocks
 
-$ dotlit --list mixed-blocks.js.lit.md
+```sh
+$ dotlit mixed-blocks.js.lit.md --list 
 mixed-blocks.js
 foo.js
 bar.js
@@ -71,17 +83,17 @@ baz.css
 
 Extract all the files
 ```sh
-$ dotlit --extract-all mixed-blocks.js.lit.md 
+$ dotlit mixed-blocks.js.lit.md --extract-all 
 ```
 
 Extract the foo.js file
 ```sh
-$ dotlit --extract foo.js mixed-blocks.js.lit.md 
+$ dotlit mixed-blocks.js.lit.md --extract foo.js 
 ```
 
 Extract the mixed-blocks.js file
 ```sh
-$ dotlit --extract mixed-blocks.js.lit.md 
+$ dotlit mixed-blocks.js.lit.md --extract 
 ```
 
 ### In node.js app
@@ -247,7 +259,8 @@ You can specify a range to search in the file.  The syntax is similar to the vi 
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+
+- 0.0.1 Initial Release.  README driven development phase.
 
 ## License
 Copyright (c) 2013   
