@@ -71,9 +71,9 @@ $ dotlit programming-tutorial.lit.md --extract hello.c
 ```
     
 ### Simple Named Code Blocks Example
-Imagine you are writing a simple tutorial about creating the "Hello, world!" code.  You could extract your code from your tutorial as you
-write it to make sure it compiles and your reader could extract it later to get the hello.c file themselves.  You could also render the
-dotlit file as HTML and deliver it along with the extracted files.
+Imagine you are writing a simple tutorial about creating the "Hello, world!" code shown above.  If you do it as a dotlit file you can extract your code 
+from your tutorial as you write it to make sure it compiles and your reader could extract it later to get the code without copying and pasting.  
+You could also render the dotlit file as HTML and deliver it along with the extracted files.
 
 ---------------------------------------
 
@@ -100,6 +100,8 @@ _Finally let's make the program print out "Hello, world!" and exit with a status
 _Compile hello.c with your favorite compiler and you are done!_
 
 ---------------------------------------
+
+### dotlit File Operations
 
 The previous simple example shows the three of the file operations that dotlit adds.  Here are all operations:
 
@@ -152,7 +154,7 @@ dotlit is a [node.js](http://nodejs.org/) module that has both a command line co
 use in your own node.js projects.  You don't have to be a node.js programmer to use the command line interface but
 you do need to have node.js installed.
 
-Once you install node.js install the module with: `npm install -g dotlit`
+Once you install node.js install the module with: `npm install -g dotlit` (**NOT YET IMPLEMENTED**)
 
 ### Command Line Interface
 
@@ -233,7 +235,7 @@ $ dotlit mixed-blocks.js.lit.md --extract
 ### Library Interfaces
 
 ####dotlit Interface
-- load(filename, callback(err, LitFile)):undefined - async loader, uses callback to return LitFile
+- load(filename, callback(err, LitFile)):void - async loader, uses callback to return LitFile
 - loadSync(filename):LitFile - returns LitFile or null if file can't be loaded
 - create(filename, text):LitFile - returns LitFile created from the passed text
 
