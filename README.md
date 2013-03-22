@@ -17,18 +17,18 @@ Since it is a transparent extension any existing Markdown processor can process 
 made, checklists of requirements, references to online documentation or comments to files that don't provide for a comments, like json files.
 This [literate programming](http://en.wikipedia.org/wiki/Literate_programming) style has recently had a reawakening due to 
 Jeremy Ashkenas' [Literate CoffeeScript](http://coffeescript.org/#literate) (which inpart inspired dotlit's creation).
-2. Gathering and documenting a set of files.  A good example is a [chef](http://www.opscode.com/chef/) recipe that may has five customized files.
-Instead of having seperate (or no) documenation on what was changed in the files you can have a single dotlit file that contains all the documenation and
+2. Gathering and documenting a set of files.  A good example is a [chef](http://www.opscode.com/chef/) recipe that with five customized files.
+Instead of having separate (or no) documenation on what was changed in the files you can have a single dotlit file that contains all the documenation and
 the files with their full paths preserved.
 3. Developing code using a single file but compiling/serving it using multiple files.  In web development combining html, css and Javascript in a single file is
 not a good idea because it limits testability and often violates the [DRY principle](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself).  However, keeping all the
 related code in one file does often provide for a quicker development cycle because you are not constantly switching between files.  With dotlit you can combine
-the files during development and easily extract them for compiling/serving and get a meta documenation facility as a bonus.
+the files during development and easily extract them for testing/compiling/serving and get a meta documenation facility as a bonus.
 4. Writing tutorials or ebooks containing code you can validate.  How many tutorials or ebooks have you read that have syntax errors in the code samples because they
 were just pasted in after the fact?  Because dotlit is simply Markdown you can use any of the wide variety of tools to render the dotlit file as
 HTML, PDF or the various eBook formats and still be able to extract and verify the code with the bonus of being able to also deliver all of the source
-files separately.  This was the original inspiration for dotlit after talking to Paul Bissex at a developers groups about how he [used Markdown to co-write](http://news.e-scribe.com/440)
-his (Django book)[http://withdjango.com/].
+files separately.  This was the original inspiration for dotlit (after talking to (Paul Bissex)[https://twitter.com/pbx] at a developer's group about how he [used Markdown to co-write](http://news.e-scribe.com/440)
+his [Django book](http://withdjango.com/)).
 
 ## dotlit Markup
 
@@ -42,7 +42,7 @@ Anonymous code blocks are simply Markdown code blocks.
         return 0;
     }
 
-If this anonymous code block was in a file named hello.c.lit.md you could extract the code into hello.c using this command:
+If this anonymous code block was inside a file named hello.c.lit.md you could extract the code into hello.c using this command:
 ```sh
 $ dotlit hello.c.lit.md --extract
 ```
@@ -55,8 +55,7 @@ anonymous code blocks.  The following three files with anonymous code blocks wou
 3. test.js.lit
     
 ### Named Code Blocks
-Named code blocks allow you embed a named file in a Markdown document.  The $ character (when it is the first non-whitespace
-character in a code block) denotes a dotlit file operation.
+Named code blocks allow you embed a named file in a Markdown document.  The $ character (when it is the first non-whitespace character in a code block) denotes a dotlit file operation.
 
     $ hello.c
     #include <stdio.h>
@@ -231,7 +230,7 @@ Extract the mixed-blocks.js file
 $ dotlit mixed-blocks.js.lit.md --extract 
 ```
 
-### In node.js app
+### Library Interface
 ```javascript
 var dotlit = require('dotlit');
 
