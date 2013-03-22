@@ -230,7 +230,27 @@ Extract the mixed-blocks.js file
 $ dotlit mixed-blocks.js.lit.md --extract 
 ```
 
-### Library Interface
+### Library Interfaces
+
+####dotlit Interface
+- load(filename, callback(err, LitFile)):undefined
+- loadSync(filename):LitFile returns LitFile or null if file can't be loaded
+- create(filename, data):LitFile returns LitFile
+
+####LitFile Interface
+- filename:String - the filename
+- extractFilename:String - the filename used when extracting anonymous code blocks (read-only)
+- text:String - text of the dotlit file (read-only)
+- files:Array - list of files in the order they appear in the dotlit file (read-only)
+- fileMap:Object - mapping of embedded filenames to EmbeddedFile instances in the dotlit file (read-only)
+- extract(filename):EmbeddedFile returns the embedded file or null if file not in LitFile
+- renderHTML():String returns the contents of the dotlit file as HTML
+  
+####EmbeddedFile Interface
+- filename:Sting - the filename (read-only)
+- contents:String - the contents of the file (read-only)
+
+Examples
 ```javascript
 var dotlit = require('dotlit');
 
@@ -255,6 +275,8 @@ dotlit.load('test.lit.md', function (err, litFile) {
   res.send(litFile.renderHTML());
 });
 
+// create a lit file from a buffer (the filename is needed to resolve anonymous code blocks)
+var litFile = dotlit.create('test.lit.md', 'Here is the main function:\n    #include <stdio.h>\n\n    int main() {\n        puts("Hello, world!");\n        return 0;\n    }\n');
 ```
 
 ## Contributing

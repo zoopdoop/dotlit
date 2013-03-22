@@ -15,4 +15,4 @@
 
 var dotlit = require('../lib/dotlit');
 
-dotlit.processCommandLine();
+dotlit._processCommandLine();
