@@ -233,17 +233,17 @@ $ dotlit mixed-blocks.js.lit.md --extract
 ### Library Interfaces
 
 ####dotlit Interface
-- load(filename, callback(err, LitFile)):undefined
-- loadSync(filename):LitFile returns LitFile or null if file can't be loaded
-- create(filename, data):LitFile returns LitFile
+- load(filename, callback(err, LitFile)):undefined - async loader, uses callback to return LitFile
+- loadSync(filename):LitFile - returns LitFile or null if file can't be loaded
+- create(filename, text):LitFile - returns LitFile created from the passed text
 
 ####LitFile Interface
-- filename:String - the filename
+- filename:String - the filename (read-only)
 - extractFilename:String - the filename used when extracting anonymous code blocks (read-only)
 - text:String - text of the dotlit file (read-only)
 - files:Array - list of files in the order they appear in the dotlit file (read-only)
 - fileMap:Object - mapping of embedded filenames to EmbeddedFile instances in the dotlit file (read-only)
-- extract(filename):EmbeddedFile returns the embedded file or null if file not in LitFile
+- extract(filename):EmbeddedFile returns the embedded file or null if file is not in the LitFile
 - renderHTML():String returns the contents of the dotlit file as HTML
   
 ####EmbeddedFile Interface
@@ -256,27 +256,39 @@ var dotlit = require('dotlit');
 
 // load a lit file asynchronously and print number of files inside of it
 dotlit.load('test.lit.md', function (err, litFile) {
-  console.log(litFile.files.length);
+  if (!err) {
+    console.log(litFile.files.length);
+  }
 });
 
 // load a lit file synchronously and print the names of all the files inside of it
 var litFile = dotlit.loadSync('test.lit.md');
-litFile.files.forEach(function (file) {
-  console.log(file.filename);
-});
+if (litFile) {
+  litFile.files.forEach(function (file) {
+    console.log(file.filename);
+  });
+}
 
-// load a lit file asynchronously and extract a file from it
+// load a lit file asynchronously, extract a file from it and then display the contents of the embedded file
 dotlit.load('test.lit.md', function (err, litFile) {
-  var file = litFile.extract('foo.js');
+  if (!err) {
+    var file = litFile.extract('foo.js');
+    if (file) {
+      console.log(file.contents);
+    }
+  }
 });
 
 // load a lit file asynchronously and render an HTML view
 dotlit.load('test.lit.md', function (err, litFile) {
-  res.send(litFile.renderHTML());
+  if (!err) {
+    res.send(litFile.renderHTML());
+  }
 });
 
-// create a lit file from a buffer (the filename is needed to resolve anonymous code blocks)
+// create a lit file from a buffer (the filename is needed to resolve anonymous code blocks) and then render it as HTML
 var litFile = dotlit.create('test.lit.md', 'Here is the main function:\n    #include <stdio.h>\n\n    int main() {\n        puts("Hello, world!");\n        return 0;\n    }\n');
+res.send(litFile.renderHTML());
 ```
 
 ## Contributing
