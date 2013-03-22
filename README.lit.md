@@ -1,6 +1,6 @@
 # dotlit 
 
-A literate programming source code processor.
+A literate programming source code processor with a (command line app)[#command-line-interface] and (library interface)[#library-interfaces].
 
 ## What Is dotlit?
 dotlit is a transparent extension to [Markdown](http://daringfireball.net/projects/markdown/syntax) that adds semantics to Markdown code blocks.  It allows you to easily:
@@ -9,7 +9,8 @@ dotlit is a transparent extension to [Markdown](http://daringfireball.net/projec
 2. Use named code blocks to embed any number of source code files from any programming language into a Markdown document and then easily extract them out later.  
 3. Combine named and anonymous code blocks to include dependent files inside a main source file.  
 
-Since it is a transparent extension any existing Markdown processor can process any dotlit file. 
+Since it is a transparent extension any existing Markdown processor can process any dotlit file.  This file in face is a dotlit file and you can see how
+GitHub renders it [here](https://github.com/zoopdoop/dotlit/blob/master/README.lit.md).
 
 ## Uses for dotlit?
 
