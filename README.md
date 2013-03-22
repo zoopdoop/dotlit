@@ -3,18 +3,37 @@
 Literate programming source code processor.
 
 ## What Is dotlit?
-dotlit is a simple extension to [Markdown](http://daringfireball.net/projects/markdown/syntax) that allows you to easy do three things:
+dotlit is a transparent extension to [Markdown](http://daringfireball.net/projects/markdown/syntax) that adds semantics to Markdown code blocks.  
+dotlit allows you to easily do three things:
 
-1. Use named code blocks to embed any number of source code files from any programming language into a Markdown document and then easily extract them out later.  
-2. Use anonymous code blocks to document a single source file using Markdown in the style of Jeremy Ashkenas' [Literate CoffeeScript](http://coffeescript.org/#literate)
-and then filter out the Markdown to recover the original source.
-3. Combine named and anonymous code blocks to include dependent files inside a main source file.
+1. Use anonymous code blocks to document a single source file using Markdown and then filter out the Markdown to recover the original source. 
+This [literate programming](http://en.wikipedia.org/wiki/Literate_programming) style allows you to document your design decisions and has recently became more popular
+due to Jeremy Ashkenas' [Literate CoffeeScript](http://coffeescript.org/#literate) (which also inspired dotlit's creation).
+2. Use named code blocks to embed any number of source code files from any programming language into a Markdown document and then easily extract them out later.  
+3. Combine named and anonymous code blocks to include dependent files inside a main source file.  
+
+Since dotlit is a transparent extension any existing Markdown processor can process a dotlit file. 
+
+## Uses for dotlit?
+
+1. Adding meta documentation that you don't want to be shipped with the source code.  These can be things like design decisions you
+made, checklists of requirements, references to online documentation or comments to files that don't provide for a commenting system, like json files.
+2. Gathering and documenting a set of files.  A good example is a [chef](http://www.opscode.com/chef/) recipe that may have five files that need customized.
+Instead of having seperate (or no) documenation on what was changed in the files you can have a single dotlit file that contains all the documenation and
+the files with their full paths preserved.
+3. Developing code using a single file but compiling/serving it using multiple files.  In web development combining html, css and Javascript in a single file is
+not a good idea because it limits testability and often violates the [DRY principle](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself).  However, keeping all the
+related code in one file does often provide for a quicker development cycle because you are not constantly switching between files.  With dotlit you can combine
+the files during development and easily extract them for compiling/serving and get a meta documenation facility as a bonus.
+4. Writing tutorials or ebooks containing code you can validate.  How many tutorials or ebooks have you read that have syntax errors in the code samples because they
+were just pasted in after the fact?  Because dotlit is simply Markdown you can use any of the wide variety of tools to render the dotlit file as
+HTML, PDF or the various eBook formats and still be able to extract and verify the code with the bonus of being able to also deliver all of the source
+files separately.
 
 ## dotlit Markup
 
-dotlit is a transparent superset of Markdown.  Any existing Markdown processor can process a dotlit file with no changes.
-
-Here is a dotlit file with an anonymous code block.  It looks exactly like a Markdown code block.
+### Anonymous Code Blocks
+Anonymous code blocks are simply Markdown code blocks.
 
     #include <stdio.h>
 
@@ -23,9 +42,9 @@ Here is a dotlit file with an anonymous code block.  It looks exactly like a Mar
         return 0;
     }
 
-If this code block was in a file named hello.c.lit.md you could extract the code into hello.c using this command:
+If this anonymous code block was in a file named hello.c.lit.md you could extract the code into hello.c using this command:
 ```sh
-$ dotlit --extract hello.c.lit.md
+$ dotlit hello.c.lit.md --extract
 ```
 
 The placement of the .lit extension in the filename sets the end of the extracted filename in a document with 
@@ -35,7 +54,8 @@ anonymous code blocks.  The following three files with anonymous code blocks wou
 2. test.js.lit.dev.md
 3. test.js.lit
     
-Here is a dotlit named code block which will allow you embed hello.c in a Markdown document with any filename.  The $ character (when it is the first non-whitespace
+### Named Code Blocks
+Named code blocks allow you embed a named file in a Markdown document.  The $ character (when it is the first non-whitespace
 character in a code block) denotes a dotlit file operation.
 
     $ hello.c
@@ -46,8 +66,15 @@ character in a code block) denotes a dotlit file operation.
         return 0;
     }
 
-So, big deal right?  Well imagine you have a simple tutorial on creating the "Hello, world!" code.  Let's put the tutorial text in _italics_ since you are probably reading this
-from the rendered README.md file.
+If this named code block was in a file named programming-tutorial.lit.md you could extract the code into hello.c using this command:
+```sh
+$ dotlit programming-tutorial.lit.md --extract hello.c
+```
+    
+### Simple Named Code Blocks Example
+Imagine you are writing a simple tutorial about creating the "Hello, world!" code.  You could extract your code from your tutorial as you
+write it to make sure it compiles and your reader could extract it later to get the hello.c file themselves.  You could also render the
+dotlit file as HTML and deliver it along with the extracted files.
 
 ---------------------------------------
 
