@@ -105,8 +105,8 @@ _Compile hello.c with your favorite compiler and you are done!_
 
 The previous simple example shows the three of the file operations that dotlit adds.  Here are all operations:
 
-    $ text.txt
-    This creates a new file called text.txt since there is no operator after the filename.
+    $ test.txt
+    This creates a new file called test.txt since there is no operator after the filename.
 
     $ test.txt (+)
     This line gets appended to test.txt at line 2. The plain "+" means insert at the end of the file.
@@ -129,17 +129,9 @@ The previous simple example shows the three of the file operations that dotlit a
     three lines.  The number of new lines in the code block does not need to match the number of lines
     that are replaced, so this line would also be added to the file.
     
-    [no $ at the top of a code block]
-    This declares an anonymous code block.  If you have multiple anonymous code blocks they append to one another.
-    
-    $ [no file name]
-    This is also an anonymous code block that allows you to use any of the parenthetical operators mentioned above
-    such as "$ (2+)" or "$ (1:2)".
-
-Each operation accumulates so for instance deleting the first two lines in a row actually deletes four total lines.
-
-    $ test.txt (1-2)
-    $ test.txt (1-2)
+    $ (1-2)
+    This is an anonymous code block that allows you to use any of the parenthetical operators mentioned above.
+    This example would delete two lines starting at line 1.
 
 ### File Operation Format    
 
@@ -236,7 +228,7 @@ $ dotlit mixed-blocks.js.lit.md --extract
 
 ####dotlit Interface
 - load(filename, callback(err, LitFile)):void - async loader, uses callback to return LitFile
-- loadSync(filename):LitFile - returns LitFile or null if file can't be loaded
+- loadSync(filename):LitFile - returns LitFile or throws an error if file can't be loaded
 - create(filename, text):LitFile - returns LitFile created from the passed text
 
 ####LitFile Interface
@@ -245,53 +237,52 @@ $ dotlit mixed-blocks.js.lit.md --extract
 - text:String - text of the dotlit file (read-only)
 - files:Array - list of files in the order they appear in the dotlit file (read-only)
 - fileMap:Object - mapping of embedded filenames to EmbeddedFile instances in the dotlit file (read-only)
+- html:String - the contents of the dotlit file as HTML
 - extract(filename):EmbeddedFile returns the embedded file or null if file is not in the LitFile
-- renderHTML():String returns the contents of the dotlit file as HTML
   
 ####EmbeddedFile Interface
 - filename:Sting - the filename (read-only)
 - contents:String - the contents of the file (read-only)
 
 Examples
-```javascript
-var dotlit = require('dotlit');
+    $ examples.js
+    var dotlit = require('dotlit');
 
-// load a lit file asynchronously and print number of files inside of it
-dotlit.load('test.lit.md', function (err, litFile) {
-  if (!err) {
-    console.log(litFile.files.length);
-  }
-});
+    // load a lit file asynchronously and print number of files inside of it
+    dotlit.load('test.lit.md', function (err, litFile) {
+      if (!err) {
+        console.log(litFile.files.length);
+      }
+    });
 
-// load a lit file synchronously and print the names of all the files inside of it
-var litFile = dotlit.loadSync('test.lit.md');
-if (litFile) {
-  litFile.files.forEach(function (file) {
-    console.log(file.filename);
-  });
-}
-
-// load a lit file asynchronously, extract a file from it and then display the contents of the embedded file
-dotlit.load('test.lit.md', function (err, litFile) {
-  if (!err) {
-    var file = litFile.extract('foo.js');
-    if (file) {
-      console.log(file.contents);
+    // load a lit file synchronously and print the names of all the files inside of it
+    var litFile = dotlit.loadSync('test.lit.md');
+    if (litFile) {
+      litFile.files.forEach(function (file) {
+        console.log(file.filename);
+      });
     }
-  }
-});
 
-// load a lit file asynchronously and render an HTML view
-dotlit.load('test.lit.md', function (err, litFile) {
-  if (!err) {
-    res.send(litFile.renderHTML());
-  }
-});
+    // load a lit file asynchronously, extract a file from it and then display the contents of the embedded file
+    dotlit.load('test.lit.md', function (err, litFile) {
+      if (!err) {
+        var file = litFile.extract('foo.js');
+        if (file) {
+          console.log(file.contents);
+        }
+      }
+    });
 
-// create a lit file from a buffer (the filename is needed to resolve anonymous code blocks) and then render it as HTML
-var litFile = dotlit.create('test.lit.md', 'Here is the main function:\n    #include <stdio.h>\n\n    int main() {\n        puts("Hello, world!");\n        return 0;\n    }\n');
-res.send(litFile.renderHTML());
-```
+    // load a lit file asynchronously and render an HTML view
+    dotlit.load('test.lit.md', function (err, litFile) {
+      if (!err) {
+        res.send(litFile.html);
+      }
+    });
+
+    // create a lit file from a buffer (the filename is needed to resolve anonymous code blocks) and then render it as HTML
+    var litFile = dotlit.create('test.lit.md', 'Here is the main function:\n    #include <stdio.h>\n\n    int main() {\n        puts("Hello, world!");\n        return 0;\n    }\n');
+    res.send(litFile.html);
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).

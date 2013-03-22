@@ -14,5 +14,10 @@
  */
 
 var dotlit = require('../lib/dotlit');
-
-dotlit._processCommandLine();
+    
+process.on('uncaughtException', function(err) {
+  console.log(err.stack);
+  process.exit(1);
+});      
+    
+process.exit(dotlit._processCommandLine());
