@@ -1,6 +1,6 @@
 # dotlit 
 
-A literate programming source code processor with a (command line app)[#command-line-interface] and (library interface)[#library-interfaces].
+A literate programming source code processor with a [command line app](#command-line-interface) and [library interface](#library-interfaces).
 
 ## What Is dotlit?
 dotlit is a transparent extension to [Markdown](http://daringfireball.net/projects/markdown/syntax) that adds semantics to Markdown code blocks.  It allows you to easily:
