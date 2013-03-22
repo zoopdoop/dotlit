@@ -1,24 +1,23 @@
 # dotlit 
 
-Literate programming source code processor.
+A literate programming source code processor.
 
 ## What Is dotlit?
-dotlit is a transparent extension to [Markdown](http://daringfireball.net/projects/markdown/syntax) that adds semantics to Markdown code blocks.  
-dotlit allows you to easily do three things:
+dotlit is a transparent extension to [Markdown](http://daringfireball.net/projects/markdown/syntax) that adds semantics to Markdown code blocks.  It allows you to easily:
 
 1. Use anonymous code blocks to document a single source file using Markdown and then filter out the Markdown to recover the original source. 
-This [literate programming](http://en.wikipedia.org/wiki/Literate_programming) style allows you to document your design decisions and has recently became more popular
-due to Jeremy Ashkenas' [Literate CoffeeScript](http://coffeescript.org/#literate) (which also inspired dotlit's creation).
 2. Use named code blocks to embed any number of source code files from any programming language into a Markdown document and then easily extract them out later.  
 3. Combine named and anonymous code blocks to include dependent files inside a main source file.  
 
-Since dotlit is a transparent extension any existing Markdown processor can process a dotlit file. 
+Since it is a transparent extension any existing Markdown processor can process any dotlit file. 
 
 ## Uses for dotlit?
 
 1. Adding meta documentation that you don't want to be shipped with the source code.  These can be things like design decisions you
-made, checklists of requirements, references to online documentation or comments to files that don't provide for a commenting system, like json files.
-2. Gathering and documenting a set of files.  A good example is a [chef](http://www.opscode.com/chef/) recipe that may have five files that need customized.
+made, checklists of requirements, references to online documentation or comments to files that don't provide for a comments, like json files.
+This [literate programming](http://en.wikipedia.org/wiki/Literate_programming) style has recently had a reawakening due to 
+Jeremy Ashkenas' [Literate CoffeeScript](http://coffeescript.org/#literate) (which inpart inspired dotlit's creation).
+2. Gathering and documenting a set of files.  A good example is a [chef](http://www.opscode.com/chef/) recipe that may has five customized files.
 Instead of having seperate (or no) documenation on what was changed in the files you can have a single dotlit file that contains all the documenation and
 the files with their full paths preserved.
 3. Developing code using a single file but compiling/serving it using multiple files.  In web development combining html, css and Javascript in a single file is
@@ -28,7 +27,8 @@ the files during development and easily extract them for compiling/serving and g
 4. Writing tutorials or ebooks containing code you can validate.  How many tutorials or ebooks have you read that have syntax errors in the code samples because they
 were just pasted in after the fact?  Because dotlit is simply Markdown you can use any of the wide variety of tools to render the dotlit file as
 HTML, PDF or the various eBook formats and still be able to extract and verify the code with the bonus of being able to also deliver all of the source
-files separately.
+files separately.  This was the original inspiration for dotlit after talking to Paul Bissex at a developers groups about how he [used Markdown to co-write](http://news.e-scribe.com/440)
+his (Django book)[http://withdjango.com/].
 
 ## dotlit Markup
 
@@ -133,12 +133,12 @@ The previous simple example shows the three of the file operations that dotlit a
     
     $ [no file name]
     This is also an anonymous code block that allows you to use any of the parenthetical operators mentioned above
-    such as `$ (2+)` or `$ (1:2)`.
+    such as "$ (2+)" or "$ (1:2)".
 
 Each operation accumulates so for instance deleting the first two lines in a row actually deletes four total lines.
 
-    $ test (1-2)
-    $ test (1-2)
+    $ test.txt (1-2)
+    $ test.txt (1-2)
 
 ### File Operation Format    
 
@@ -155,7 +155,7 @@ you do need to have node.js installed.
 
 Once you install node.js install the module with: `npm install -g dotlit`
 
-### Command Line
+### Command Line Interface
 
 #### Using dotlit files with named code blocks
 
