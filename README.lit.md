@@ -167,7 +167,7 @@ Options:
 
 #### Using dotlit files with named code blocks
 
-List all the files
+List all the embedded files
 ```sh
 $ dotlit named-blocks.lit.md --list 
 index.html
@@ -175,6 +175,17 @@ assets/js/app.js
 assets/js/api.js
 assets/css/app.css
 /etc/nginx/sites-available/example.com
+```
+
+Print out the contents of an embedded file
+```sh
+$ dotlit README.md --print hello.c
+#include <stdio.h>
+
+int main() {
+    puts("Hello, world!");
+    return 0;
+}
 ```
 
 Extract all the files.  You will need to give confirmation for any files extracted when they are outside of the current directory 
