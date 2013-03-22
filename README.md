@@ -150,6 +150,21 @@ Once you install node.js install the module with: `npm install -g dotlit` (**NOT
 
 ### Command Line Interface
 
+```sh
+Usage: dotlit <file> [options]
+
+Options:
+  -l, --list            Lists the embedded files (default if no option is given)
+  -e, --extract <file>  Extracts the specified embedded file
+  -p, --print <file>    Prints the specified embedded file
+  -a, --extract-all     Extracts all the embedded files
+  -r, --renderHTML      Renders the file as html
+  -v, --verbose         Shows messages while processing
+  -f, --force           Skips confirmation when extracting files either outside
+                        the current directory or extracting over files that have changed
+  -h, -?, --help        Shows this information
+```
+
 #### Using dotlit files with named code blocks
 
 List all the files
@@ -245,6 +260,7 @@ $ dotlit mixed-blocks.js.lit.md --extract
 - contents:String - the contents of the file (read-only)
 
 Examples
+
     $ examples.js
     var dotlit = require('dotlit');
 
