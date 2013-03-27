@@ -320,6 +320,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 ## Release History
 
 - 0.0.1 Initial Release.  README driven development phase.
+- 0.0.2 Initial command line options and library complete.  
 
 ## License
 Copyright (c) 2013   
