@@ -76,8 +76,8 @@ $ dotlit programming-tutorial.lit.md --extract hello.c
     
 ### Simple Named Code Blocks Example
 Imagine you are writing a simple tutorial about creating the "Hello, world!" code shown above.  If you do it as a dotlit file you can extract your code 
-from your tutorial as you write it to make sure it compiles and your reader could extract it later to get the code without copying and pasting.  
-You could also render the dotlit file as HTML and deliver it along with the extracted files.
+from your tutorial as you write it to make sure it compiles and your reader could extract it later to get the code without copying and pasting.  You could 
+also render the dotlit file as HTML and deliver it along with the extracted files.
 
 ---------------------------------------
 
@@ -150,23 +150,26 @@ dotlit is a [node.js](http://nodejs.org/) module that has both a command line co
 use in your own node.js projects.  You don't have to be a node.js programmer to use the command line interface but
 you do need to have node.js installed.
 
-Once you install node.js install the module with: `npm install -g dotlit` (**NOT YET IMPLEMENTED**)
+Once you install node.js install the module with: `npm install -g dotlit`
 
 ### Command Line Interface
 
 ```sh
+$ dotlit --help
+dolit version 0.2.0
+
 Usage: dotlit <file> [options]
 
 Options:
-  -l, --list            Lists the embedded files (default if no option is given)
-  -e, --extract <file>  Extracts the specified embedded file
-  -p, --print <file>    Prints the specified embedded file
-  -a, --extract-all     Extracts all the embedded files
-  -r, --renderHTML      Renders the file as html
-  -v, --verbose         Shows messages while processing
-  -f, --force           Skips confirmation when extracting files either outside
-                        the current directory or extracting over files that have changed
-  -h, -?, --help        Shows this information
+  --list            Lists the embedded files (default if no option is given)
+  --extract <file>  Extracts the specified embedded file
+  --extract-all     Extracts all the embedded files
+  --print <file>    Prints the specified embedded file to stdout
+  --print-all       Prints all the embedded files to stdout
+  --render <file>   Renders the dotlit file as html
+  --force           Skips confirmation when extracting files outside the current directory
+  --verbose         Shows messages while processing
+  --help            Shows this information
 ```
 
 #### Using dotlit files with named code blocks
@@ -193,16 +196,15 @@ int main() {
 ```
 
 Extract all the files.  You will need to give confirmation for any files extracted when they are outside of the current directory 
-or its subdirectories or if the file already exists and it has a newer file date than the dotlit file.  You use the --force parameter
-to disable these checks.
+or its subdirectories.  You use the --force parameter to disable these checks.
 ```sh
 $ dotlit named-blocks.lit.md --extract-all --verbose
-Extract assets/js/api.js? (overwriting changed file) [y/N] N
 Extract /etc/nginx/sites-available/example.com? (outside of tree) [y/N] y
-Extracted index.html
-Extracted assets/js/app.js
-Extracted assets/css/app.css
-Extracted /etc/nginx/sites-available/example.com
+[INFO] Extracted assets/js/api.js
+[INFO] Extracted index.html
+[INFO] Extracted assets/js/app.js
+[INFO] Extracted assets/css/app.css
+[INFO] Extracted /etc/nginx/sites-available/example.com
 ```
 
 Extract the foo.js file
@@ -212,7 +214,7 @@ $ dotlit named-blocks.lit.md --extract assets/js/foo.js
 
 Render a dotlit file as HTML
 ```sh
-$ dotlit named-blocks.lit.md --renderHTML named-blocks.html 
+$ dotlit named-blocks.lit.md --render named-blocks.html 
 ```
 
 #### Using dotlit files with only anonymous code blocks
@@ -264,8 +266,9 @@ $ dotlit mixed-blocks.js.lit.md --extract
 - filename:String - the filename (read-only)
 - extractFilename:String - the filename used when extracting anonymous code blocks (read-only)
 - text:String - text of the dotlit file (read-only)
-- files:Array - list of files in the order they appear in the dotlit file (read-only)
-- fileMap:Object - mapping of embedded filenames to EmbeddedFile instances in the dotlit file (read-only)
+- files:Array of EmbeddedFile - array of EmbeddedFiles in the order they appear in the dotlit file (read-only)
+- filenames:Array of String - array of filenames in the order they appear in the dotlit file (read-only)
+- fileMap:Object (String to EmbeddedFile) - mapping of embedded filenames to EmbeddedFile instances in the dotlit file (read-only)
 - html:String - the contents of the dotlit file as HTML
 - extract(filename):EmbeddedFile returns the embedded file or null if file is not in the LitFile
   
@@ -315,7 +318,7 @@ Examples
     res.send(litFile.html);
 
 ## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+Please maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using the existing [Gruntfile](http://gruntjs.com/).
 
 ## Release History
 
