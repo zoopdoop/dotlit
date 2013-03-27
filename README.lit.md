@@ -9,7 +9,7 @@ dotlit is a transparent extension to [Markdown](http://daringfireball.net/projec
 2. Use named code blocks to embed any number of source code files from any programming language into a Markdown document and then easily extract them out later.  
 3. Combine named and anonymous code blocks to include dependent files inside a main source file.  
 
-Since it is a transparent extension any existing Markdown processor can process any dotlit file.  This file in face is a dotlit file and you can see how
+Since it is a transparent extension any existing Markdown processor can process any dotlit file.  This documentation is a dotlit file itself and you can see how
 GitHub renders it [here](https://github.com/zoopdoop/dotlit/blob/master/README.lit.md).
 
 ## Uses for dotlit?
@@ -21,11 +21,14 @@ Jeremy Ashkenas' [Literate CoffeeScript](http://coffeescript.org/#literate) (whi
 2. Gathering and documenting a set of files.  A good example is a [chef](http://www.opscode.com/chef/) recipe that with five customized files.
 Instead of having separate (or no) documenation on what was changed in the files you can have a single dotlit file that contains all the documenation and
 the files with their full paths preserved.
-3. Developing code using a single file but compiling/serving it using multiple files.  In web development combining html, css and Javascript in a single file is
+3. Bundling the tests for a source file within the actual source file.  Imagine being able to write the test code for the function right next to the actual function instead of 
+maintaining seperate files.  Using a combination of anonymous code blocks in the source file with named test file blocks you can easily embed the test code and then
+extract it out for testing.
+4. Developing code using a single file but compiling/serving it using multiple files.  In web development combining html, css and Javascript in a single file is
 not a good idea because it limits testability and often violates the [DRY principle](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself).  However, keeping all the
 related code in one file does often provide for a quicker development cycle because you are not constantly switching between files.  With dotlit you can combine
 the files during development and easily extract them for testing/compiling/serving and get a meta documenation facility as a bonus.
-4. Writing tutorials or ebooks containing code you can validate.  How many tutorials or ebooks have you read that have syntax errors in the code samples because they
+5. Writing tutorials or ebooks containing code you can validate.  How many tutorials or ebooks have you read that have syntax errors in the code samples because they
 were just pasted in after the fact?  Because dotlit is simply Markdown you can use any of the wide variety of tools to render the dotlit file as
 HTML, PDF or the various eBook formats and still be able to extract and verify the code with the bonus of being able to also deliver all of the source
 files separately.  This was the original inspiration for dotlit (after talking to (Paul Bissex)[https://twitter.com/pbx] at a developer's group about how he [used Markdown to co-write](http://news.e-scribe.com/440)
@@ -194,12 +197,11 @@ or its subdirectories or if the file already exists and it has a newer file date
 to disable these checks.
 ```sh
 $ dotlit named-blocks.lit.md --extract-all --verbose
+Extract assets/js/api.js? (overwriting changed file) [y/N] N
+Extract /etc/nginx/sites-available/example.com? (outside of tree) [y/N] y
 Extracted index.html
 Extracted assets/js/app.js
-Extract assets/js/api.js? (overwriting changed file) [y/N] N
-Skipped extracting assets/js/api.js
 Extracted assets/css/app.css
-Extract /etc/nginx/sites-available/example.com? (outside of tree) [y/N] y
 Extracted /etc/nginx/sites-available/example.com
 ```
 

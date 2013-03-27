@@ -31,7 +31,8 @@
     "test": "grunt nodeunit"
   },
   "dependencies": {
-    "marked": "~0.2.8"
+    "marked": "~0.2.8",
+    "cli-prompt": "~0.1.0"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.1.1",

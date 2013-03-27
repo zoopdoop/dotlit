@@ -47,7 +47,7 @@ exports['test async loading'] = {
     dotlit.load('test/litfiles/anon-code-blocks.lit.md', function (err, litFile) {
       test.equal(litFile.files.length, 1, 'should be 1 file'); 
       test.equal(litFile.files[0].filename, 'anon-code-blocks', 'should be 1 file'); 
-      test.equal(litFile.files[0].contents, '#include <stdio.h>\n\nint main() {\n    puts("Hello, world!");\n    \n    return 0;\n}\n', 'should have extracted code'); 
+      test.equal(litFile.files[0].contents, '#include <stdio.h>\nint main() {\n    puts("Hello, world!");\n    return 0;\n}\n', 'should have extracted code'); 
       test.done(); 
     });
   },

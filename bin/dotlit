@@ -13,11 +13,17 @@
  * https://github.com/zoopdoop/dotlit/blob/master/LICENSE
  */
 
-var dotlit = require('../lib/dotlit');
+var dotlit = require('../lib/dotlit'),
+    retCode;
     
 process.on('uncaughtException', function(err) {
   console.log(err.stack);
   process.exit(1);
 });      
-    
-process.exit(dotlit._processCommandLine());
+
+retCode = dotlit._processCommandLine()
+
+// don't exit out if normal as we might be waiting for the user's prompt answer
+if (retCode !== 0) {
+  process.exit(0);
+}
