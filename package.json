@@ -1,21 +1,20 @@
 {
   "name": "dotlit",
-  "description": "Literate programming source code processor",
-  "version": "0.1.0",
-  "homepage": "http://www.dotlitfile.com/",
-  "author": {
-    "name": "Doug Martin",
-    "email": "doug@zoopdoop.com"
-  },
+  "preferGlobal": true,
+  "version": "0.2.0",
+  "author": "Doug Martin <doug@zoopdoop.com>",
+  "description": "Literate programming source code processor with a command line app and library interface",
+  "homepage": "git://github.com/zoopdoop/dotlit.git",
   "bin": {
-    "dotlitfile": "./bin/dotlitfile"
+    "dotlit": "./bin/dotlit"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/zoopdoop/dotlit.git"
   },
   "bugs": {
-    "url": "https://github.com/zoopdoop/dotlit/issues"
+    "url": "https://github.com/zoopdoop/dotlit/issues",
+    "email" : "doug@zoopdoop.com"
   },
   "licenses": [
     {
@@ -42,6 +41,7 @@
   },
   "keywords": [
     "literate", 
-    "programming"
+    "programming",
+    "cli"
   ]
 }
