@@ -291,8 +291,8 @@ Examples
     // load a lit file synchronously and print the names of all the files inside of it
     var litFile = dotlit.loadSync('test.lit.md');
     if (litFile) {
-      litFile.files.forEach(function (file) {
-        console.log(file.filename);
+      litFile.filenames.forEach(function (filename) {
+        console.log(filename);
       });
     }
 
@@ -322,9 +322,15 @@ Please maintain the existing coding style. Add unit tests for any new or changed
 
 ## Release History
 
-- 0.0.1 Initial Release.  README driven development phase.
-- 0.0.2 Initial command line options and library complete.  
+- 0.1.0 Initial Release.  README driven development phase.
+- 0.2.0 Initial command line options and library complete.  
+
+## Roadmap
+
+- 0.3.0 Expand tests to provide full code coverage.
+- Add external git repo with sample projects
+- Create free online service to extract files from raw or rendered dotlit files passed as urls
 
 ## License
-Copyright (c) 2013   
+Copyright (c) 2013 by Doug Martin, Zoopdoop, LLC.  
 Licensed under the MIT license.
