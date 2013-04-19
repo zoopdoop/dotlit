@@ -1,7 +1,7 @@
 {
   "name": "dotlit",
   "preferGlobal": true,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Doug Martin <doug@zoopdoop.com>",
   "description": "Literate programming source code processor with a command line app and library interface",
   "homepage": "git://github.com/zoopdoop/dotlit.git",

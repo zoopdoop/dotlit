@@ -2,7 +2,7 @@
 
 A literate programming source code processor with a [command line app](#command-line-interface) and [library interface](#library-interfaces).
 
-## What Is dotlit?
+## What is dotlit?
 dotlit is a transparent extension to [Markdown](http://daringfireball.net/projects/markdown/syntax) that adds semantics to Markdown code blocks.  It allows you to easily:
 
 1. Use anonymous code blocks to document a single source file using Markdown and then filter out the Markdown to recover the original source. 
@@ -324,6 +324,7 @@ Please maintain the existing coding style. Add unit tests for any new or changed
 
 - 0.1.0 Initial Release.  README driven development phase.
 - 0.2.0 Initial command line options and library complete.  
+- 0.2.1 Changed file operation to be $ as the first character with at least one space after it
 
 ## Roadmap
 
